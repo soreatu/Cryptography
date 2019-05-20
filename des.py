@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Written by *Soreat_u* on May 14th, 2019.
 
-'  DES implementation using python  '
+'  DES implementation in python  '
 
 '''Permutation Table'''
 IP_table = [58,50,42,34,26,18,10,2,
@@ -89,72 +89,8 @@ sbox = [[14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7,
          7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8,
          2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11]] # ok
 
+from Utility import Block2Bytes, BlockXor, Bytes2Block, Permute
 
-'''Utility Function'''
-def BlockXor(bx, by):
-    '''
-    xor each of the element in the two blocks
-    '''
-    result = []
-    for i in range(len(bx)):
-        result.append(bx[i] ^ by[i])
-    return result # ok
-
-def String2Block(s):
-    '''
-    Convert string to bit block
-    '''
-    result = []
-    for i in s:
-        for j in range(8):
-            result.append(ord(i) >> (7-j) & 1) # Little-Endian ???
-    return result  # ok
-
-def Bytes2Block(b):
-    '''
-    Convert bytes to bit block
-    '''
-    result = []
-    for i in b:
-        for j in range(8):
-            result.append(i >> (7 - j) & 1)
-    return result # ok
-
-def Block2String(b):
-    '''
-    Convert bit block to string
-    '''
-    result = ""
-    for i in range(8):
-        dec = 0 # get the decimal of 8 bits
-        for j in range(8):
-            dec += b[i * 8 + j] << (7 - j)
-        result += chr(dec)
-    return result  # ok
-
-def Block2Bytes(b):
-    '''
-    Convert bit block to bytes
-    '''
-    result = b""
-    for i in range(8):
-        dec = 0
-        for j in range(8):
-            dec += b[i * 8 + j] << (7 - j)
-        result += bytes([dec])
-    return result # ok
-
-def Permute(block, p):
-    '''
-    Do the general permutation
-    '''
-    result = []
-    try:
-        for i in range(len(p)):
-            result.append(block[p[i]-1])
-    except IndexError:
-        print("Permutation is out of index of the block")
-    return result # ok
 
 '''Process Function'''
 # IP and FP are inverses(IP "undoes" the action of FP, and vice versa)
@@ -223,7 +159,7 @@ def Permutation(HalfBlock):
 
 '''Encryption & Decryption'''
 # Decryption uses the same structure as encryption, but merely with the keys used in reverse order.
-def encrypt(m, subkey):
+def DES_enc(m, subkey):
     '''
     Encryption of DES.
 
@@ -254,7 +190,7 @@ def encrypt(m, subkey):
     # convert `block` m to `bytes`
     return Block2Bytes(m) # ok
 
-def decrypt(c, subkey):
+def DES_dec(c, subkey):
     '''
     Decryption of DES.
     
@@ -267,7 +203,7 @@ def decrypt(c, subkey):
     '''
     # Since decryption shares a lot similarity with encryption and the very difference between them\
     # is the subkey (reversed), decryption is actually another form of encryption.
-    return encrypt(c, subkey[::-1]) # ok
+    return DES_enc(c, subkey[::-1]) # ok
 
 
 '''Key schedule'''
@@ -330,13 +266,13 @@ def PC_2(CiDi):
 
 
 
-'''Test Function'''
+'''Test'''
 def test():
     m = b"desisbad"
     key = b"Imnotkey"
     subkey = gen_key(key)
-    cipher = encrypt(m, subkey)
-    message = decrypt(cipher, subkey)
+    cipher = DES_enc(m, subkey)
+    message = DES_dec(cipher, subkey)
     print(b"Message: " + message)
     print(b"Key: " + key)
     print(b"Cipher: " + cipher)
