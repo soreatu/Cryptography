@@ -66,3 +66,39 @@ def Permute(block, p):
     except IndexError:
         print("Permutation is out of index of the block")
     return result # ok
+
+def bytes2bits(b):
+    '''
+    convert bytes to binary representation
+
+    :param bytes b
+    :rtype: str
+    '''
+    return ''.join(bin(i)[2:].rjust(8, '0') for i in b) # ok
+
+def str2bits(s):
+    '''
+    convert string to binary representation
+
+    :param str s
+    :rtype: str
+    '''
+    return ''.join(bin(ord(i))[2:].rjust(8, '0') for i in s) # ok
+
+def bits2bytes(b):
+    '''
+    convert bits to bytes representation
+
+    :param str b: 0,1 character sequences
+    :rtype: bytes
+    '''
+    return b''.join(bytes([int(b[i: i + 8], 2)]) for i in range(0, len(b), 8)) # ok
+
+def bits2str(b):
+    '''
+    convert bits to str representation
+
+    :param str b: 0,1 character sequences
+    :rtype: str
+    '''
+    return ''.join(chr(int(b[i:i+8],2)) for i in range(0,len(b),8)) # ok
