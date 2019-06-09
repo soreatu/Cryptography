@@ -2,7 +2,7 @@
 # Written by *Soreat_u* on June 9th, 2019
 
 
-'  AES implementation in Python'
+'  AES implementation in Python  '
 # Reference: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf
 
 from Arithemetic import gmul
@@ -24,7 +24,6 @@ def SubBytes(s):
     '''
     for i in range(16):
         s[i] = S_box[s[i]]
-
 
 def InvSubBytes(s):
     '''
@@ -178,7 +177,7 @@ def AES_enc(input, key):
     rounds = number_of_rounds[len(key)]
 
     ''' All the `##` are for test2() '''
-    ## r = 0
+    r = 0
     ## print("round[%2d].input    %s" % (r, binascii.hexlify(input)))
     
     # Generate subkeys
