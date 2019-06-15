@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-'  Some arithemetic implementation in Python'
+'  Some arithemetic implementation in Python  '
 
 def egcd(a,b):
     '''
@@ -77,6 +77,28 @@ def gmul(a, b):
             p ^= a
         carry = a & 0x80 # the leftmost bit of a
         a <<= 1 
-        if (carry): a ^= 0x11b  # sub 0b1_0001_1011 (Irr. pol. = x8+x4+x3+x1+1)
+        if (carry):
+            a ^= 0x11b  # sub 0b1_0001_1011 (Irr. pol. = x8+x4+x3+x1+1)
         b >>= 1
     return p
+
+def gmul128(a, b):
+    '''
+    Multiplication in GF(2^8)
+
+    :param int a
+    :param int b
+    :return: return: a•b over GF(2^8)
+    :rtype: int
+    '''
+    p = 0
+    while a and b:
+        if (b & 0x1):
+            p ^= a
+        carry = a & (1 << 127)
+        a <<= 1
+        if (carry):
+            a ^= (1 << 128) + 0x86  # Irr. pol. = x128+x7+x2+x1
+        b >>= 1
+    return p
+    # not test
