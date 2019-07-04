@@ -2,6 +2,24 @@
 
 '  Some arithemetic implementation in Python  '
 
+def FastExponentiation(x, y, n):
+    '''
+    Square-and-Mutiply for Modular Exponentiation
+
+    :param int x: base element
+    :param int y: exponent
+    :param int n: modulus
+    :return: x^y % n
+    :rtype: int
+    '''
+    b = bin(y)[2:]
+    res = x
+    for i in b[1:]:
+        res = res*res % n
+        if int(i):
+            res = res * x % n
+    return res
+
 def egcd(a,b):
     '''
     Extended Euclidean Algorithm
