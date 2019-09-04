@@ -5,7 +5,7 @@
 '  RSA implementation in Python  '
 
 import random
-import Arithemetic
+import Arithmetic
 
 # encryption & decryption function
 def RSA_enc(pt, pub_key):

@@ -23,7 +23,7 @@ Implementation of cryptographic algorithms in *Python* based on the book [***Und
   - Digital Signatures
   - Hash Functions
   - MAC(Message Authentication Codes)
-- Attackk
+- Attack
   - Shank's Babystep-Giantstep Algorithm
 
 ## More
