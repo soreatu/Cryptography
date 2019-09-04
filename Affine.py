@@ -11,7 +11,7 @@
 # |  Dec: dₖ(y) = x ≡ a⁻¹·(y - b) mod 26  |
 # +--------------------------------------+
 
-from Arithemetic import modInverse
+from Arithmetic import modInverse
 
 '''Encryption & Decryption'''
 def affine_enc(m, k):

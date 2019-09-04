@@ -5,7 +5,7 @@
 '  AES implementation in Python  '
 # Reference: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf
 
-from Arithemetic import gmul
+from Arithmetic import gmul
 import binascii # for test2()
 
 

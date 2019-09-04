@@ -47,12 +47,12 @@ def RSA_keygen(n):
     phi = (p-1) * (q-1)
     while 1:
         e = random.randint(1, phi-1)
-        if Arithemetic.gcd(e, phi) == 1:
+        if Arithmetic.gcd(e, phi) == 1:
             pub_key['e'] = e
             pub_key['n'] = n
             pri_key['p'] = p
             pri_key['q'] = q
-            pri_key['d'] = Arithemetic.modInverse(e, n)
+            pri_key['d'] = Arithmetic.modInverse(e, n)
             pri_key['n'] = n
             return (pub_key, pri_key)
 
@@ -73,8 +73,8 @@ def RSA_fast_dec(ct, pri_key):
     dq = d % (q-1)
     yp = pow(xp, dp, p)
     yq = pow(xq, dq, q)
-    cp = Arithemetic.modInverse(q, p)
-    cq = Arithemetic.modInverse(p, q)
+    cp = Arithmetic.modInverse(q, p)
+    cq = Arithmetic.modInverse(p, q)
     return (q*cp*yp+p*cq*yq) % n
 
 # Primality Tests
