@@ -23,6 +23,8 @@ Implementation of cryptographic algorithms in *Python* based on the book [***Und
   - Digital Signatures
   - Hash Functions
   - MAC(Message Authentication Codes)
+- Attackk
+  - Shank's Babystep-Giantstep Algorithm
 
 ## More
 Youtube videos(lectures): [Introduction to Cryptography by Christof Paar](https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos).
