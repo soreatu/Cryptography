@@ -278,11 +278,11 @@ def test():
     print(b"Cipher: " + cipher)
 
 if __name__ == "__main__":
-    # test()
-    c = b'\xb3\x1e4\x81y\x83\xedY\x05R\xc1|\xdcTVK\xbb\xa4&\xd1:?)\xeb\x87\x83\xcb\xca\x03\x11kU'
-    key = b'Salted__'
-    subkey = gen_key(key)
-    print(DES_dec(c[16:24], subkey))
+    test()
+    # c = b'\xb3\x1e4\x81y\x83\xedY\x05R\xc1|\xdcTVK\xbb\xa4&\xd1:?)\xeb\x87\x83\xcb\xca\x03\x11kU'
+    # key = b'Salted__'
+    # subkey = gen_key(key)
+    # print(DES_dec(c[16:24], subkey))
 
 
 # output:
