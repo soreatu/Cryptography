@@ -67,10 +67,9 @@ def ModInverse(e, n):
     assert(g == 1) # e has an inverse modulo n iff gcd(e, n) == 1
     return res % n
 
-
-def LinearCongruenceEquation(a, c, m):
+def LinearCongruenceSolver(a, c, m):
     '''
-    Solve x such that `a * x ≡ c (mod m)`.
+    Solve x such that `a * x ≡ c (mod m)`,
     returns all the possible *x*s (mod m), None if no solution.
     '''
     g = gcd(a, m)
@@ -79,6 +78,65 @@ def LinearCongruenceEquation(a, c, m):
     u0 = egcd(a, m)[0]
     return [(c * u0 + k * m) // g % m for k in range(g)]
 
+def ModSquareRoot(a, p):
+    '''
+    Solve x such that `x^2 ≡ a (mod p)` where p is a prime,
+    returns all the solution(s), None if no solution.
+    '''
+    # assert(isPrime(p))
+    l = Legendre(a, p)  # The Legendre symbol of a over p.
+    if l == -1:
+        return None
+    elif l == 0:
+        return [0]
+    
+    if p % 4 == 3:  # which is quite easy to compute.
+        R = pow(a, (p + 1) // 4, p)
+        return [R, p - R]
+    else:
+        return TonelliShanksAlgorithm(a, p)
+
+def TonelliShanksAlgorithm(a, p):
+    '''
+    Solve the equation `x^2 ≡ a (mod p)` where `p ≡ 1 (mod 4)`.
+    returns all the two solutions to the equation.
+    '''
+    # 1. Factor `p - 1` into `2^S * Q` where Q is odd.
+    Q = p - 1
+    S = 0
+    while Q & 1 == 0:
+        S += 1
+        Q //= 2
+    # 2. Find a NR(p).
+    y = 2
+    while Legendre(y, p) != -1:
+        y += 1
+    # 3. Calculate the four quantities.
+    R = pow(a, (Q + 1) // 2, p)
+    c = pow(y, Q, p)
+    t = pow(a, Q, p)
+    E = S
+    # 4. Loop.
+    while t != 1:
+        for i in range(1, E):
+            if pow(t, 2 ** i, p) == 1:
+                break
+        b = pow(c, 2 ** (E - i - 1), p)
+        R = R * b % p
+        c = pow(b, 2, p)
+        t = c * t % p
+        E = i
+    return [R, p - R]
+
+def Legendre(a, p):
+    '''
+    The Legendre Sybmol.
+    returns 1 if a is QR(p), or -1 if NR(p), or 0 if a divides p.
+    '''
+    if a % p == 0:
+        return 0
+    # Euler's Criterion
+    return 1 if pow(a, (p - 1) // 2, p) == 1 else -1
 
 # 中国剩余定理(Chinese Remainder Theorem, CRT)
 # 适用于模数两两互质的情况，可以直接通过构造求解。
@@ -104,13 +162,12 @@ def CRT(ai, mi):
     for a1, m1 in zip(ai[1:], mi[1:]):
         # `x ≡ a (mod m)` ==> `x = a + k * m`
         # substitute in `x ≡ a1 (mod m1)` ==> `k * m ≡ a1 - a (mod m1)`
-        k = LinearCongruenceEquation(m, a1 - a, m1) # solve k
+        k = LinearCongruenceSolver(m, a1 - a, m1) # solve k
         if not k:
             return None
         # The solution is x ≡ a + k * m (mod m * m1)
         a, m = a + k[0] * m, m * m1
     return a
-
 
 
 # Finite field (GF(2^8)) arithemetic for AES 
@@ -157,7 +214,7 @@ def gmul(a, b):
         carry = a & 0x80 # the leftmost bit of a
         a <<= 1 
         if (carry):
-            a ^= 0x11b  # sub 0b1_0001_1011 (Irr. pol. = x8+x4+x3+x1+1)
+            a ^= 0x11b  # sub 0b1_0001_1011 a.k.a. Irreducible poly. = x8+x4+x3+x1+1
         b >>= 1
     return p
 
@@ -181,7 +238,6 @@ def gmul128(a, b):
         b >>= 1
     return p
     # not test
-
 
 
 # square-related
@@ -209,7 +265,7 @@ def is_perfect_square(n):
     
     otherwise returns -1
     '''
-    h = n & 0xF; #last hexadecimal "digit"
+    h = n & 0xF; # last hexadecimal "digit"
     
     if h > 9:
         return -1 # return immediately in 6 cases out of 16.
