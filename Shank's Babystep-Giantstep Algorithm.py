@@ -10,9 +10,9 @@ from Arithmetic import isqrt, ModInverse,\
                         FastModularExponentiation as powmod
 
 
-def DiscreatLog(g, h, p):
+def DiscreteLog(g, h, p):
     '''
-    Calculate x such that g^x = h in GF(p).
+    Solve x such that g^x = h over GF(p).
     '''
     sqrt_n = isqrt(p) + 1
 
@@ -40,7 +40,7 @@ def DiscreatLog(g, h, p):
 def test():
     # 50-bit p: 3.3GB RAM
     g, h, p = 6, 448509460363890, 1057584323171191
-    x = DiscreatLog(g, h, p)
+    x = DiscreteLog(g, h, p)
     print(f"{g}^{x} % {p} == {h}")
 
 if __name__ == '__main__':
