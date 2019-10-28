@@ -17,14 +17,15 @@ Implementation of cryptographic algorithms in *Python* based on the book [***Und
       6. GCM(Galois Counter Mode)
 - Asymmetric Algorithm
   - RSA
-  - DLP(todo, the same below)
-  - ECC 
+  - Elgamal (todo)
+  - ECC (todo)
 - Protocol
-  - Digital Signatures
-  - Hash Functions
-  - MAC(Message Authentication Codes)
+  - Digital Signatures (todo)
+  - Hash Functions (todo)
+  - MAC(Message Authentication Codes) (todo)
 - Attack
   - Shank's Babystep-Giantstep Algorithm
+  - Pollard's rho Method
 
 ## More
 Youtube videos(lectures): [Introduction to Cryptography by Christof Paar](https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos).
