@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Written by *Soreat_u* on September 4th, 2019
+# AUTHOR: Soreat_u (2019-09-04)
 
 '''
 Shank's Babystep-Giantstep Algorithm to solve the DLP over GF(p) in O(sqrt(N)) steps.

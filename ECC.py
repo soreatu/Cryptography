@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+# AUTHOR: Soreat_u (2019-10-30)
 
-'Elliptic curves cryptography implementation in Python'
+'''
+Elliptic Curves Cryptography.
+'''
 
 from Arithmetic import ModInverse as inverse, ModSquareRoot as mod_sqrt
 
@@ -64,7 +67,7 @@ class ECC(object):
         Addition over the elliptic curve.
 
         Ref: Theorem 6.6 (Elliptic Curve Addition Algorithm)\
-             in book `An Introduction to Mathematical Cryptography`.
+            in book `An Introduction to Mathematical Cryptography`.
         '''
         if P == self._O:
             return Point(Q.x, Q.y)
@@ -90,7 +93,9 @@ class ECC(object):
         Multiplication over the elliptic curve.
 
         Ref: Table 6.3: The double-and-add algorithm for elliptic curves\
-             in book `An Introduction to Mathematical Cryptography`.
+            in book `An Introduction to Mathematical Cryptography`.
+        TODO: The ternary expansion of n method which can compute nP in about\
+            about 4/3k + 1 steps.
         '''
         Q = Point(P.x, P.y)
         R = Point(float('inf'), float('inf'))
@@ -112,7 +117,7 @@ class ECC(object):
         return self.__str__()
 
     def __str__(self):
-        return f"Elliptic curve y^2 = x^3 {self._A:+d}x {self._B:+d} over finite field {self._p}"
+        return f"Elliptic Curve defined by y^2 = x^3 {self._A:+d}x {self._B:+d} over Finite Field of size {self._p}"
 
 
 def test():

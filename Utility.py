@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+# AUTHOR: Soreat_u (2019-05-20)
 
-'  Some utility functions for several cipher algorithm implementation  '
+'''
+Some utility functions for several cipher algorithms implementation.
+'''
 
 def BlockXor(bx, by):
     '''

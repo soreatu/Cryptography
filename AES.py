@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Written by *Soreat_u* on June 9th, 2019
+# AUTHOR: Soreat_u (2019-06-09)
 
+'''
+AES (Advance Encryption Standard) implementation.
+'''
 
-'  AES implementation in Python  '
 # Reference: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf
 
 from Arithmetic import gmul

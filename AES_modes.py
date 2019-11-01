@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# Written by *Soreat_u* on June 15th, 2019
+# AUTHOR: Soreat_u (2019-06-15)
 
-
-'  Modes of AES implementation  '
+'''
+Modes of AES implementation.
+'''
 
 from AES import AES_enc, AES_dec
 import os

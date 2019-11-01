@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+# AUTHOR: Soreat_u (2019-05-31)
 
-'  Stream Cipher  '
+'''
+Stream Cipher implementation.
+'''
 
 import Utility
 

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-# Written by *Soreat_u* on ...
+# AUTHOR: Soreat_u (2019-07-04)
 
-
-'  RSA implementation in Python  '
+'''
+The RSA Public Key Cryptosystem implementation.
+'''
 
 import random
 import Arithmetic

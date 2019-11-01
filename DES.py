@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-# Written by *Soreat_u* on May 14th, 2019.
+# AUTHOR: Soreat_u (2019-05-14)
 
-'  DES implementation in python  '
+'''
+DES (Data Encryption Standard) implementation.
+'''
 
 from Utility import Block2Bytes, BlockXor, Bytes2Block, Permute
 

@@ -1,9 +1,10 @@
 # Introduction
-Implementation of cryptographic algorithms in *Python* based on the book [***Understanding Cryptography***](http://www.crypto-textbook.com/).
+Implementation of cryptographic algorithms in *Python*.
 
 ## List
 - Symmetric Algorithm
   - Shift Cipher
+  - Vigenere Cipher
   - Affine Cipher
   - Stream Cipher
   - DES(Data Encryption Standard)
@@ -17,15 +18,18 @@ Implementation of cryptographic algorithms in *Python* based on the book [***Und
       6. GCM(Galois Counter Mode)
 - Asymmetric Algorithm
   - RSA
-  - Elgamal (todo)
-  - ECC (todo)
+  - Elgamal
+  - ECC
 - Protocol
-  - Digital Signatures (todo)
-  - Hash Functions (todo)
-  - MAC(Message Authentication Codes) (todo)
+  - Digital Signatures (TODO)
+  - Hash Functions (TODO)
+  - MAC(Message Authentication Codes) (TODO)
 - Attack
+  - Index of Coincidence & Chi-squared Statistic
   - Shank's Babystep-Giantstep Algorithm
   - Pollard's rho Method
 
-## More
-Youtube videos(lectures): [Introduction to Cryptography by Christof Paar](https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos).
+## Reference
+[*Understanding Cryptography*](http://www.crypto-textbook.com/)  
+[Introduction to Cryptography by Christof Paar (lectures)](https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos).  
+[*An Introduction to Mathematical Cryptography*](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.182.9999&rep=rep1&type=pdf)  

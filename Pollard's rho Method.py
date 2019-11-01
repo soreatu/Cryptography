@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Written by *Soreat_u* on October 28th, 2019
+# AUTHOR: Soreat_u (2019-10-28)
 
 '''
 Pollard's ρ Method to solve the DLP over GF(p) in O(sqrt(N)) steps.

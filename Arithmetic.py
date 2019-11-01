@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+# AUTHOR: Soreat_u (2019-09-14)
 
-'Some arithemetic implementation in Python'
+'''
+Some arithemetic implementation.
+'''
 
 # Number-theory-related
 def FastModularMultiply(x, y, n):

@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+# AUTHOR: Soreat_u (2019-05-20)
 
-'  Affine Cipher  '
+'''
+Affine Cipher implementation.
+'''
+
 # Description: One type of monoalphabetic *substitution cipher*
 
 # +---------------------------------------+

@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+# AUTHOR: Soreat_u (2019-05-20)
 
-'  Shift(or Caesar) Cipher  '
+'''
+Shift(or Caesar) Cipher implementation.
+'''
+
 # Description: One type of *substitution cipher*
 # Idea: shift letters in alphabet
 
