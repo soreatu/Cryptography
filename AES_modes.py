@@ -251,7 +251,7 @@ def AES_GCM(pt, k, IV, AAD, pad="PKCS7"):
     :return: final authentication tag
     :rtype: bytes
     '''
-    from Arithemetic import gmul128
+    from Arithmetic import gmul128
     bxor = lambda x, y: bytes([x[i]^y[i] for i in len(x)])
     assert isinstance(IV, bytes) and len(IV)==12
     pt = padding(pt, pad)

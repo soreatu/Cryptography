@@ -46,10 +46,10 @@ def egcd(a, b):
     u, u1 = 1, 0
     v, v1 = 0, 1
     while b:
-        quotient = a // b
-        u, u1 = u1, u - quotient * u1
-        v, v1 = v1, v - quotient * v1
-        a, b = b, a - quotient * b
+        q, r = divmod(a, b)
+        u, u1 = u1, u - q * u1
+        v, v1 = v1, v - q * v1
+        a, b = b, r
     return u, v, a
 
 def gcd(a,b):
