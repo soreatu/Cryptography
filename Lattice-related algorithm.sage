@@ -5,17 +5,16 @@ def HadamardRatio(B):
     '''
     INPUT:
 
-    * "B" -- a matrix representation of a lattice.
+    * "B" -- a matrix representing a lattice basis.
 
     OUTPUT:
 
     * "H" -- a real number between 0 and 1.
 
-    The closer that the value is to 1, the more orthogonal are the vectors
-    in the basis.
+    The closer that the value is to 1, the more orthogonal are the basis vectors.
 
     '''
-    n = L.ncols()
+    n = B.ncols()
     H = (abs(B.det()) / product(v.norm() for v in B))^(1/n)
     return H
 
@@ -51,7 +50,7 @@ def BabaisClosestVertexAlgorithm(L, w):
     '''
     INPUT:
 
-    * "L" -- a matrix representing the reduced basis (v1, ..., vn) of a lattice.
+    * "L" -- a matrix representing the LLL-reduced basis (v1, ..., vn) of a lattice.
 
     * "w" -- a target vector to approach to.
 
@@ -72,7 +71,7 @@ def BabaisClosestPlaneAlgorithm(L, w):
 
     INPUT:
 
-    * "L" -- a matrix representing the reduced basis (v1, ..., vn) of a lattice.
+    * "L" -- a matrix representing the LLL-reduced basis (v1, ..., vn) of a lattice.
 
     * "w" -- a target vector to approach to.
 
@@ -99,7 +98,7 @@ def GaussianHeuristic(L):
 
     INPUT:
 
-    * "L" -- a matrix representation of a lattice with small dimension.
+    * "L" -- a matrix representing of a lattice basis with small dimension.
 
     OUTPUT:
 

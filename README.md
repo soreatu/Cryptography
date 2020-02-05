@@ -1,6 +1,7 @@
 # Introduction
 Implementation of cryptographic algorithms in *Python* & *SageMath*.
 
+
 ## List
 - Symmetric Ciphers
   - Shift Cipher
@@ -21,6 +22,7 @@ Implementation of cryptographic algorithms in *Python* & *SageMath*.
   - Elgamal
   - ECC
   - NTRUEncrypt
+  - GGH
 - Protocols
   - Digital Signatures (TODO)
   - Hash Functions (TODO)
@@ -35,6 +37,6 @@ Implementation of cryptographic algorithms in *Python* & *SageMath*.
 
 
 ## Reference
-[*Understanding Cryptography*](http://www.crypto-textbook.com/)
-[Introduction to Cryptography by Christof Paar (lectures)](https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos).
-[*An Introduction to Mathematical Cryptography*](https://www.springer.com/gp/book/9781441926746)
+- [*Understanding Cryptography*](http://www.crypto-textbook.com/)
+- [Introduction to Cryptography by Christof Paar (lectures)](https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg/videos).
+- [*An Introduction to Mathematical Cryptography*](https://www.springer.com/gp/book/9781441926746)
