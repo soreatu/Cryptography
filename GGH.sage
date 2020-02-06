@@ -7,7 +7,7 @@ class GGH:
     '''
     GGH Cryptosystem Implementation.
     '''
-    def __init__(self, n=200):
+    def __init__(self, n):
         self.n = n
         self.privkey, self.pubkey = self._generate(n)
 
@@ -17,14 +17,13 @@ class GGH:
         self.n = R.ncols()
 
     def encrypt(self, m, r=None, delta=3):
-        n = B.ncols()
         if r == None:
-            r = self._random_error_vector(n, delta)
+            r = self._random_error_vector(self.n, delta)
         e = m*self.pubkey + r
         return e
 
     def decrypt(self, e):
-        v = self._babais_algorithm(self.privkey, e)
+        v = self._babais_algorithm(e)
         m = self.pubkey.solve_left(v)
         return m
 
@@ -43,9 +42,9 @@ class GGH:
 
         return R, B
 
-    def _babais_algorithm(self, L, w):
+    def _babais_algorithm(self, e):
         hRR = RealField(100)
-        VV = MatrixSpace(hRR, n, n)(self.privkey)
+        VV = MatrixSpace(hRR, self.n, self.n)(self.privkey)
         VV.solve_left(e)
         t = vector([int(round(i))  for i in VV.solve_left(e)])
         v = t * self.privkey
@@ -85,8 +84,8 @@ def test():
     n = 100
     ggh = GGH(n)
     m = vector(ZZ, [i for i in range(n)])
-    e = ggh.encrypt(m);
-    assert(m == ggh.decrypt(e))
+    e = ggh.encrypt(m)
+    assert(ggh.decrypt(e) == m)
 
 if __name__ == "__main__":
     test()
