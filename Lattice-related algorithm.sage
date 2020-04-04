@@ -1,4 +1,4 @@
-# -*- codin: utf-8 -*-
+# -*- coding: utf-8 -*-
 # AUTHOR: Soreat_u (2020-02-04)
 
 def HadamardRatio(B):

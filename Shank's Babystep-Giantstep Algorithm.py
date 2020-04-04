@@ -5,9 +5,7 @@
 Shank's Babystep-Giantstep Algorithm to solve the DLP over GF(p) in O(sqrt(N)) steps.
 '''
 
-from Arithmetic import isqrt, ModInverse,\
-                        FastModularMultiply as mulmod,\
-                        FastModularExponentiation as powmod
+from Arithmetic import isqrt, ModInverse
 
 
 def DiscreteLog(g, h, p):

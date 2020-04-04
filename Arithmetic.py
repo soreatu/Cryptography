@@ -8,7 +8,7 @@ Some arithemetic implementation.
 # Number-theory-related
 def FastModularMultiply(x, y, n):
     '''
-    Returns (x * y) % n 
+    Returns (x * y) % n
     '''
     x = x % n
     res = 0
@@ -92,7 +92,7 @@ def ModSquareRoot(a, p):
         return None
     elif l == 0:
         return [0]
-    
+
     if p % 4 == 3:  # which is quite easy to compute.
         R = pow(a, (p + 1) // 4, p)
         return [R, p - R]
@@ -141,24 +141,25 @@ def Legendre(a, p):
     # Euler's Criterion
     return 1 if pow(a, (p - 1) // 2, p) == 1 else -1
 
-# 中国剩余定理(Chinese Remainder Theorem, CRT)
-# 适用于模数两两互质的情况，可以直接通过构造求解。
-# def CRT(ai, mi):
-#     # # make sure every two *m*s in *mi* are relatively prime
-#     # lcm = lambda x, y: x * y // gcd(x, y)
-#     # mul = lambda x, y: x * y
-#     # assert(reduce(mul, mi) == reduce(lcm, mi))
-#     assert(isinstance(mi, list) and isinstance(ai, list))
-#     import functools
-#     M = functools.reduce(lambda x, y: x * y, mi)
-#     ai_ti_Mi = [a * (M // m) * egcd(M // m, m)[0]  for (m, a) in zip(mi, ai)]
-#     return functools.reduce(lamdba x, y: x + y, ai_ti_Mi) % M
+# Default CRT.
+CRT = CRT_constructive
+# Constructive solution for coprime moduli.
+def CRT_constructive(ai, mi):
+    # # make sure every two *m*s in *mi* are relatively prime
+    # lcm = lambda x, y: x * y // gcd(x, y)
+    # mul = lambda x, y: x * y
+    # assert(reduce(mul, mi) == reduce(lcm, mi))
+    assert(isinstance(mi, list) and isinstance(ai, list))
+    from functools import reduce
+    M = reduce(lambda x, y: x * y, mi)
+    ai_ti_Mi = [a * (M // m) * egcd(M // m, m)[0]  for (m, a) in zip(mi, ai)]
+    return reduce(lambda x, y: x + y, ai_ti_Mi) % M
 
-# 推广，不要求模数两两互质，总体思路是代入合并，再解线性同余方程。
-def CRT(ai, mi):
+# Recursive solution.
+def CRT_recursive(ai, mi):
     '''
     Chinese Remainder Theorem.
-    solve x such that `x ≡ ai[0] (mod mi[0]) ...`.
+    Solve one x such that `x ≡ ai[0] (mod mi[0]) ...`.
     '''
     assert(isinstance(mi, list) and isinstance(ai, list))
     a, m = ai[0], mi[0]
@@ -172,8 +173,28 @@ def CRT(ai, mi):
         a, m = a + k[0] * m, m * m1
     return a
 
+def CRT_recursive_all(ai, mi):
+    '''
+    Chinese Remainder Theorem.
+    Solve all x such that `x ≡ ai[0] (mod mi[0]) ...`.
+    '''
+    assert(isinstance(mi, list) and isinstance(ai, list))
+    a_s, m = set([ai[0]]), mi[0]
+    for a1, m1 in zip(ai[1:], mi[1:]):
+        # print(f"m1: {m1}")
+        new_as = set()
+        for a in a_s:
+            ks = LinearCongruenceSolver(m, a1 - a, m1)
+            if not ks:
+                continue
+            for k in ks:
+                new_as.add(a + k*m)
+        a_s = new_as
+        m = m * m1
+    return a_s, m
 
-# Finite field (GF(2^8)) arithemetic for AES 
+
+# Finite field (GF(2^8)) arithemetic for AES
 def gadd(a, b):
     '''
     Addition in GF(2^8).
@@ -215,7 +236,7 @@ def gmul(a, b):
         if (b & 0x1):
             p ^= a
         carry = a & 0x80 # the leftmost bit of a
-        a <<= 1 
+        a <<= 1
         if (carry):
             a ^= 0x11b  # sub 0b1_0001_1011 a.k.a. Irreducible poly. = x8+x4+x3+x1+1
         b >>= 1
@@ -244,6 +265,20 @@ def gmul128(a, b):
 
 
 # square-related
+# def isqrt(n):
+#     """
+#     Returns x such that x = floor(sqrt(n))
+
+#     Ref: https://en.wikipedia.org/wiki/Integer_square_root
+#     """
+#     xk = n
+#     xkp1 = (xk + n//xk) // 2
+#     while abs(xkp1 - xk) >= 1:
+#         xk = xkp1
+#         xkp1 = (xk + n//xk) // 2
+#     return xkp1
+
+
 def isqrt(n):
     '''
     Calculates the integer square root
@@ -251,7 +286,7 @@ def isqrt(n):
     '''
     if n < 0:
         raise ValueError('square root not defined for negative numbers')
-    
+
     if n == 0:
         return 0
     a, b = divmod(n.bit_length(), 2)
@@ -264,12 +299,10 @@ def isqrt(n):
 
 def is_perfect_square(n):
     '''
-    If n is a perfect square it returns sqrt(n),
-    
-    otherwise returns -1
+    Returns sqrt(n) if n is a perfect square, -1 otherwise.
     '''
     h = n & 0xF; # last hexadecimal "digit"
-    
+
     if h > 9:
         return -1 # return immediately in 6 cases out of 16.
 
@@ -281,5 +314,5 @@ def is_perfect_square(n):
             return t
         else:
             return -1
-    
+
     return -1

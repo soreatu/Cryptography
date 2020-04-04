@@ -7,6 +7,7 @@ Implementation of cryptographic algorithms in *Python* & *SageMath*.
   - Shift Cipher
   - Vigenere Cipher
   - Affine Cipher
+  - Enigma Machine Cipher
   - Stream Cipher
   - DES(Data Encryption Standard)
   - AES(Advanced Encryption Standarad)
@@ -21,7 +22,7 @@ Implementation of cryptographic algorithms in *Python* & *SageMath*.
   - RSA
   - Elgamal
   - ECC
-  - NTRUEncrypt
+  - NTRUEncrypt (broken implementation)
   - GGH
 - Protocols
   - Digital Signatures (TODO)

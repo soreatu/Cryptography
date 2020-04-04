@@ -160,7 +160,7 @@ def Expansion(HalfBlock):
 def Substitution(HalfBlock):
     '''
     Divide the block into eight 6-bit pieces and then use S-boxes(substitution boxes) to process the eight pieces.
-    After processing, the block is reduced from 48 bits to 32 bits. 
+    After processing, the block is reduced from 48 bits to 32 bits.
     48-bit -> 32-bit
     '''
     result = []
@@ -171,7 +171,7 @@ def Substitution(HalfBlock):
 def S_box(piece, i):
     '''
     Replace the six input bits with four output bits according to a non-linear transformation, provided in the form of a loopup table.
-    S-boxes provide the core of the security of DES, without which the cipher would be linear and easily broken. 
+    S-boxes provide the core of the security of DES, without which the cipher would be linear and easily broken.
     6-bit -> 4-bit
     '''
     row = (piece[0] << 1) + piece[-1]
@@ -225,7 +225,7 @@ def DES_enc(m, subkey):
 def DES_dec(c, subkey):
     '''
     Decryption of DES.
-    
+
     :param bytes c: The cipher to be decrypted
     :param list subkey: The subkey to decrypt the cipher
     :return: the message after decryption
@@ -263,7 +263,7 @@ def gen_key(key):
     Ci, Di = bkey[:28], bkey[28:]
     for i in range(16):
         # Left Rotation
-        Ci, Di = LR(Ci, Di, i) 
+        Ci, Di = LR(Ci, Di, i)
         # PC-2
         subkey.append(PC_2(Ci + Di))
     return subkey # ok
@@ -311,11 +311,6 @@ def test():
 
 if __name__ == "__main__":
     test()
-    # c = b'\xb3\x1e4\x81y\x83\xedY\x05R\xc1|\xdcTVK\xbb\xa4&\xd1:?)\xeb\x87\x83\xcb\xca\x03\x11kU'
-    # key = b'Salted__'
-    # subkey = gen_key(key)
-    # print(DES_dec(c[16:24], subkey))
-
 
 # output:
 # b'Message: desisbad'

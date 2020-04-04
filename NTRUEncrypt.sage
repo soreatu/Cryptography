@@ -5,7 +5,7 @@
 NTRUEncrypt (the NTRU public key cryptosystem) implementation.
 '''
 
-# Reference: Book *An Introduction to Mathematical Cryptography* Section 7.10.1
+# Reference: Book "An Introduction to Mathematical Cryptography" Section 7.10.1
 class NTRUEncrypt(object):
     '''
     NOTE: This is a BROKEN implementation, for sagemath doesen't implement
