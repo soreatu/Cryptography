@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 # AUTHOR: Soreat_u (2019-07-04)
 
-import math
 
 '''
 The RSA Public Key Cryptosystem implementation.
 '''
 
-import random
+import math
+from random import SystemRandom
 import Arithmetic
+
+random = SystemRandom()  # Use urandom.
 
 # encryption & decryption function
 def RSA_enc(pt, pub_key):
