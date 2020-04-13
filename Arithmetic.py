@@ -141,8 +141,7 @@ def Legendre(a, p):
     # Euler's Criterion
     return 1 if pow(a, (p - 1) // 2, p) == 1 else -1
 
-# Default CRT.
-CRT = CRT_constructive
+
 # Constructive solution for coprime moduli.
 def CRT_constructive(ai, mi):
     # # make sure every two *m*s in *mi* are relatively prime
@@ -193,6 +192,8 @@ def CRT_recursive_all(ai, mi):
         m = m * m1
     return a_s, m
 
+# Default CRT.
+CRT = CRT_constructive
 
 # Finite field (GF(2^8)) arithemetic for AES
 def gadd(a, b):

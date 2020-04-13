@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # AUTHOR: Soreat_u (2019-07-04)
 
+import math
+
 '''
 The RSA Public Key Cryptosystem implementation.
 '''
@@ -23,7 +25,7 @@ def RSA_enc(pt, pub_key):
 def RSA_dec(ct, pri_key):
     '''
     Decryption of RSA
-    
+
     :param int ct: integer representation of ciphertext
     :param dict pri_key: private key {'d':xx, 'n':xx, 'p':xx, 'q':xx}
     :return: plaintext after decryption
@@ -32,32 +34,32 @@ def RSA_dec(ct, pri_key):
     return pow(ct, pri_key['d'], pri_key['n'])
 
 # key generation
-def RSA_keygen(n):
+def RSA_keygen(bits):
     '''
     RSA key generation
 
-    :param int n: bit length of prime p,q
+    :param int bits: bit length of the modulus n.
     :return: public key {'e':xx, 'n':xx} and private key {'d':xx, 'n':xx, 'p':xx, 'q':xx}
     :rtype: tuple of dicts
     '''
     pub_key = {}
     pri_key = {}
-    p = getprime(n)
-    q = getprime(n)
+    p = getprime(bits//2)
+    q = getprime(bits//2)
     n = p * q
     phi = (p-1) * (q-1)
-    while 1:
+    while True:
         e = random.randint(1, phi-1)
         if Arithmetic.gcd(e, phi) == 1:
             pub_key['e'] = e
             pub_key['n'] = n
             pri_key['p'] = p
             pri_key['q'] = q
-            pri_key['d'] = Arithmetic.modInverse(e, n)
+            pri_key['d'] = Arithmetic.ModInverse(e, phi)
             pri_key['n'] = n
             return (pub_key, pri_key)
 
-# Fast Decryption with the Chinese Remainder Theorem
+# Fast Decryption with the Chinese Remainder Theorem Optimization
 def RSA_fast_dec(ct, pri_key):
     '''
     RSA fast decryption(by a factor of 4)
@@ -74,8 +76,8 @@ def RSA_fast_dec(ct, pri_key):
     dq = d % (q-1)
     yp = pow(xp, dp, p)
     yq = pow(xq, dq, q)
-    cp = Arithmetic.modInverse(q, p)
-    cq = Arithmetic.modInverse(p, q)
+    cp = Arithmetic.ModInverse(q, p)
+    cq = Arithmetic.ModInverse(p, q)
     return (q*cp*yp+p*cq*yq) % n
 
 # Primality Tests
@@ -92,7 +94,7 @@ def Fermat_Primality_Test(p, s):
         a = random.randint(2, p-2)
         if pow(a, p-1, p) != 1:
             return False
-        s -=1
+        s -= 1
     return True
 
 def MillerRabin_Primality_Test(p, s):
@@ -125,22 +127,37 @@ def MillerRabin_Primality_Test(p, s):
     return True
 
 # Prime generator
-def getprime(n):
+def getprime(bits):
     '''
     Prime generator
 
-    :param int n: bit length of prime
+    :param int bits: bit length of prime
     :return: a n-bit prime
     :rtype: int
     '''
-    while 1:
-        # get one n-bit odd number
-        p = random.getrandbits(n)
+    while True:
+        # get one odd number
+        p = random.getrandbits(bits)
         while p & 1 == 0:
-            p = random.getrandbits(n)
+            p = random.getrandbits(bits)
         # prime test
-        if MillerRabin_Primality_Test(p, 20):
+        rabin_miller_rounds = int(math.ceil(-math.log(1e-6)/math.log(4)))
+        if MillerRabin_Primality_Test(p, rabin_miller_rounds):
             return p
 
-# padding
-# todo
+def test():
+    print("Generating RSA parameters...")
+    pub, pri = RSA_keygen(1024)
+
+    m = int.from_bytes(b"Test plaintext", 'big')
+    c = RSA_enc(m, pub)
+    decrypted_1 = RSA_dec(c, pri)
+    decrypted_2 = RSA_fast_dec(c, pri)
+    assert decrypted_1 == decrypted_2
+
+    print(f"Message: {m}")
+    print(f"Cipher: {c}")
+    print(f"Decrypted: {decrypted_1}")
+
+if __name__ == "__main__":
+    test()
