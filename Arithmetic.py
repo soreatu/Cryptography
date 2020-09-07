@@ -239,17 +239,17 @@ def gmul(a, b):
         carry = a & 0x80 # the leftmost bit of a
         a <<= 1
         if (carry):
-            a ^= 0x11b  # sub 0b1_0001_1011 a.k.a. Irreducible poly. = x8+x4+x3+x1+1
+            a ^= 0x11b  # sub 0b1_0001_1011 a.k.a. Irreducible poly. = x^8+x^4+x^3+x^1+1
         b >>= 1
     return p
 
 def gmul128(a, b):
     '''
-    Multiplication in GF(2^8).
+    Multiplication in GF(2^128).
 
     :param int a
     :param int b
-    :return: return: a•b over GF(2^8)
+    :return: return: a•b over GF(2^128)
     :rtype: int
     '''
     p = 0
@@ -259,31 +259,16 @@ def gmul128(a, b):
         carry = a & (1 << 127)
         a <<= 1
         if (carry):
-            a ^= (1 << 128) + 0x86  # Irr. pol. = x128+x7+x2+x1
+            a ^= (1 << 128) + 0x86  # Irr. pol. = x^128+x^7+x^2+x1
         b >>= 1
     return p
     # not test
 
 
-# square-related
-# def isqrt(n):
-#     """
-#     Returns x such that x = floor(sqrt(n))
-
-#     Ref: https://en.wikipedia.org/wiki/Integer_square_root
-#     """
-#     xk = n
-#     xkp1 = (xk + n//xk) // 2
-#     while abs(xkp1 - xk) >= 1:
-#         xk = xkp1
-#         xkp1 = (xk + n//xk) // 2
-#     return xkp1
-
-
+# square root
 def isqrt(n):
     '''
-    Calculates the integer square root
-    for arbitrary large nonnegative integers
+    Calculates the integer square root for arbitrary large non-negative integers.
     '''
     if n < 0:
         raise ValueError('square root not defined for negative numbers')
