@@ -18,6 +18,7 @@ Implementation of cryptographic algorithms in *Python* & *SageMath*.
       4. OFB(Output Feedback mode)
       5. CTR(Counter mode)
       6. GCM(Galois Counter Mode)
+  - SM3
   - SM4
 - Asymmetric Ciphers
   - RSA
