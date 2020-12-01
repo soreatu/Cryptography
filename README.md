@@ -9,15 +9,16 @@ Implementation of cryptographic algorithms in *Python* & *SageMath*.
   - Affine Cipher
   - Enigma Machine Cipher
   - Stream Cipher
-  - DES(Data Encryption Standard)
-  - AES(Advanced Encryption Standarad)
+  - TEA (A Tiny Encryption Algorithm)
+  - DES (Data Encryption Standard)
+  - AES (Advanced Encryption Standarad)
   - Modes of AES
-      1. ECB(Electronic Code Book mode)
-      2. CBC(Cipher Block Chaining mode)
-      3. CFB(Cipher Feedback mode)
-      4. OFB(Output Feedback mode)
-      5. CTR(Counter mode)
-      6. GCM(Galois Counter Mode)
+      1. ECB (Electronic Code Book mode)
+      2. CBC (Cipher Block Chaining mode)
+      3. CFB (Cipher Feedback mode)
+      4. OFB (Output Feedback mode)
+      5. CTR (Counter mode)
+      6. GCM (Galois Counter Mode)
   - SM3
   - SM4
 - Asymmetric Ciphers
@@ -26,10 +27,6 @@ Implementation of cryptographic algorithms in *Python* & *SageMath*.
   - ECC
   - NTRUEncrypt (broken implementation)
   - GGH
-- Protocols
-  - Digital Signatures (TODO)
-  - Hash Functions (TODO)
-  - MAC(Message Authentication Codes) (TODO)
 - Attacks & Algorithms
   - Index of Coincidence & Chi-squared Statistic
   - Shank's Babystep-Giantstep Algorithm
