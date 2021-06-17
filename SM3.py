@@ -33,7 +33,7 @@ class SM3():
             raise TypeError(f"a bytes-like object is required, not '{type(m)}'")
         # compress those already fill in a 512-bit block.
         for i in range(len(m) // 64):
-            self._V = SM3._one_block(self._V, m[i:i+64])
+            self._V = SM3._one_block(self._V, m[i*64:(i+1)*64])
         # record the left uncompressed bytes (< 512-bit)
         left_length = len(m) % 64
         if left_length > 0:
@@ -51,7 +51,7 @@ class SM3():
         self._length += len(m)
         # compress those which can already fill in 512-bit block.
         for i in range(len(self._m) // 64):
-            self._V = SM3._one_block(self._V, self._m[i:i+64])
+            self._V = SM3._one_block(self._V, self._m[i*64:(i+1)*64])
         # record the left bytes (< 512-bit)
         left_length = len(self._m) % 64
         if left_length > 0:
@@ -62,7 +62,9 @@ class SM3():
     def digest(self):
         """Return the digest value as a bytes object.
         """
-        V = SM3._one_block(self._V, SM3._pad(self._m, self._length))
+        padded = SM3._pad(self._m, self._length)
+        for i in range(len(padded)//64):
+            V = SM3._one_block(self._V, padded[i*64:(i+1)*64])
         return SM3._words_to_bytes(V)
 
     def hexdigest(self):

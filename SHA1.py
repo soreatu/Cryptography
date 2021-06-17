@@ -34,8 +34,8 @@ class SHA1(object):
         if not isinstance(m, (bytes, bytearray)):
             raise TypeError(f"a bytes-like object is required, not '{type(m)}'")
         # compress those already fill in a 512-bit block.
-        for i in range(len(m) // 64):
-            self._one_block(m[i:i+64])
+        for i in range(len(m)//64):
+            self._one_block(m[i*64:(i+1)*64])
         # record the left uncompressed bytes (< 512-bit)
         left_length = len(m) % 64
         if left_length > 0:
@@ -53,7 +53,7 @@ class SHA1(object):
         self._length += len(m)
         # compress those which can already fill in 512-bit block.
         for i in range(len(self._m) // 64):
-            self._V = self._one_block(self._m[i:i+64])
+            self._V = self._one_block(self._m[i*64:(i+1)*64])
         # record the left bytes (< 512-bit)
         left_length = len(self._m) % 64
         if left_length > 0:
@@ -64,7 +64,9 @@ class SHA1(object):
     def digest(self):
         """Return the digest value as a bytes object.
         """
-        self._one_block(SHA1._pad(self._m, self._length))
+        padded = SHA1._pad(self._m, self._length)
+        for i in range(len(padded)//64):
+            self._one_block(padded[i*64:(i+1)*64])
         checksum = b""
         checksum += SHA1._word_to_bytes(self._h0)
         checksum += SHA1._word_to_bytes(self._h1)
@@ -179,13 +181,19 @@ class SHA1(object):
 
 
 def test1():
+    import hashlib
+    print(f"hashlib.sha1(b'abc'): {hashlib.sha1(b'abc').hexdigest()}")
     print(f"SHA1(b'abc'): {SHA1(b'abc').hexdigest()}")
+    # hashlib.sha1(b'abc'): a9993e364706816aba3e25717850c26c9cd0d89d
     # SHA1(b'abc'): a9993e364706816aba3e25717850c26c9cd0d89d
 
 
 def test2():
-    print(f"SHA1(b'a'*1000): {SHA1(b'a'*1000).hexdigest()}")
-    # SHA1(b'a'*1000): 291e9a6c66994949b57ba5e650361e98fc36b1ba
+    import hashlib
+    print(f"hashlib.sha1(b'abc'*1000): {hashlib.sha1(b'abc'*1000).hexdigest()}")
+    print(f"SHA1(b'abc'*1000): {SHA1(b'abc'*1000).hexdigest()}")
+    # hashlib.sha1(b'abc'*1000): 053b4dd5a9642608cc0b599e96f491154b37b2c6
+    # SHA1(b'abc'*1000): 053b4dd5a9642608cc0b599e96f491154b37b2c6
 
 
 if __name__ == "__main__":
