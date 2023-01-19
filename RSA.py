@@ -115,17 +115,19 @@ def MillerRabin_Primality_Test(p, s):
         u += 1
         r //= 2
     # test
-    while s:
+    for _ in range(s):
         a = random.randint(2, p-2)
         z = pow(a, r, p)
-        if z != 1 and z != p-1:
-            for j in range(1, u):
-                z = pow(z, 2, p)
-                if z == 1:
-                    return False
-            if z != p-1:
-                return False
-        s -= 1
+        if z == 1 or z == p-1:      # not witness
+            continue
+        composite = 1
+        for _ in range(u):
+            z = pow(z, 2, p)
+            if z == p-1:
+                composite = 0       # not witness
+                break
+        if composite:
+            return False
     return True
 
 # Prime generator
