@@ -121,7 +121,7 @@ def MillerRabin_Primality_Test(p, s):
         if z == 1 or z == p-1:      # not witness
             continue
         composite = 1
-        for _ in range(u):
+        for _ in range(u-1):
             z = pow(z, 2, p)
             if z == p-1:
                 composite = 0       # not witness
